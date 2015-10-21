@@ -1,0 +1,49 @@
+<!DOCTYPE html> {%load staticfiles %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{%block title_block%}--智慧环卫--{%endblock title_block%}</title>
+    <link rel="shortcut icon" href="{% static "common/images/favicon.ico" %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.css" %}">
+    <script src="http://webapi.amap.com/maps?v=1.3&key=9e38fbc918485d2d70471e29d5223070"></script>
+</head>
+
+<body>
+    <div class="uk-container  uk-container-center  ">
+        <!-- navgation 导航栏-->
+    {% include "_navigation.html" %}
+</div>
+    <div class=" uk-container data-uk-grid">       
+            <!-- side-menu 侧面菜单栏-->
+            {% block sideMenu_block %}
+            {% endblock sideMenu_block %}
+            <!-- main-content 主界面 -->
+            {% block functional_block %}
+            {% endblock functional_block %}
+            {% block main_block %}
+            {% endblock main_block %}
+            {% block info_block %}
+            {% endblock info_block %}
+    </div>
+    <!-- footer -->
+    {% include "_footer.html" %}
+    <!-- script -->
+    <script src="{% static "common/js/jquery.js"%}"></script>
+    <script src="{% static "common/js/uikit.js" %}"></script>
+    <script src="{% static "common/js/components/search.js" %}"></script>
+    <script src="{% static "common/js/components/pagination.js" %}"></script>
+    <script>
+var map = new AMap.Map('mapContainer', {
+    // 设置中心点
+    //center: [116.397428, 39.90923],
+    center:[114.06667,22.61667],
+    // 设置缩放级别
+    zoom: 12
+});
+</script>
+</body>
+
+</html>

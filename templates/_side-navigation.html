@@ -1,0 +1,43 @@
+{% block side_nav_block %}
+<div id="side-nav" class="uk-offcanvas" aria-hidden="flase">
+    <div class="uk-offcanvas-bar uk-offcanvas-bar-show">
+        <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav>
+            <li>
+                <form class="uk-search">
+                    <input class="uk-search-field" type="search" placeholder="search...">
+                </form>
+            </li>
+            <li><a href=""><i class="uk-icon-home"></i> Home</a></li>
+            <li class="uk-nav-header">blog</li>
+            <li class="uk-parent" aria-expanded="false">
+                <a href="#"><i class="uk-icon-list"></i> Categories</a>
+                <ul class="uk-nav-sub">
+                    <li>
+                        <a href="">Programming <span class="uk-badge uk-badge-danger uk-align-medium-right">2</span></a>
+                        <ul>
+                            <li><a href="">Python<span class="uk-badge uk-badge-notification">2</span></a></li>
+                            <li><a href="">Mysql</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Travel <span class="uk-badge uk-badge-success uk-align-right">6</span></a></li>
+                </ul>
+            </li>
+            <li class="uk-parent" aria-expanded="false" data-uk-dropdown="{mode:'click'}">
+                <a href="#"><i class="uk-icon-archive"></i> Archives</a>
+                <!-- <div style="overflow:hidden;height:0;position:relative;" class="uk-dropdown uk-dropdown-navbar"> -->
+                <ul class="uk-nav-sub">
+                    <li><a href="">Sub Archive1</a></li>
+                    <li><a href="">Sub Archive2</a>
+                    </li>
+                </ul>
+                <!-- </div> -->
+            </li>
+            <li class="uk-nav-header">Shop</li>
+            <li class="uk-nav-divider"></li>
+            <li><a href=""><i class="uk-icon-info-circle"></i> About</a></li>
+            <li><a href=""><i class="uk-icon-phone-square"></i> contact</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+{% endblock side_nav_block %}
