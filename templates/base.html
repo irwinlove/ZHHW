@@ -12,21 +12,29 @@
 </head>
 
 <body>
-    <div class="uk-container  uk-container-center  ">
+    <div class="uk-container  uk-container-center  uk-margin-small-bottom">
         <!-- navgation 导航栏-->
     {% include "_navigation.html" %}
-</div>
-    <div class=" uk-container data-uk-grid">       
-            <!-- side-menu 侧面菜单栏-->
-            {% block sideMenu_block %}
-            {% endblock sideMenu_block %}
-            <!-- main-content 主界面 -->
-            {% block functional_block %}
-            {% endblock functional_block %}
-            {% block main_block %}
-            {% endblock main_block %}
-            {% block info_block %}
-            {% endblock info_block %}
+    </div>
+    <div class=" ">
+        <div class="uk-grid uk-grid-collapse">
+            <div class="uk-width-medium-1-6">
+                {# 侧面菜单栏 #}
+                {% block sideMenu_block %}
+                {% endblock sideMenu_block %}
+            </div>
+            <div class="uk-width-medium-5-6">
+                {# 功能区 #}
+                {% block functional_block %}
+                {% endblock functional_block %}
+                {# 地图区 #}
+                {% block main_block %}
+                {% endblock main_block %}
+                {# 信息区 #}
+                {% block info_block %}
+                {% endblock info_block %}   
+            </div>
+        </div>
     </div>
     <!-- footer -->
     {% include "_footer.html" %}
@@ -35,15 +43,6 @@
     <script src="{% static "common/js/uikit.js" %}"></script>
     <script src="{% static "common/js/components/search.js" %}"></script>
     <script src="{% static "common/js/components/pagination.js" %}"></script>
-    <script>
-var map = new AMap.Map('mapContainer', {
-    // 设置中心点
-    //center: [116.397428, 39.90923],
-    center:[114.06667,22.61667],
-    // 设置缩放级别
-    zoom: 12
-});
-</script>
 </body>
 
 </html>

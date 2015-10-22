@@ -2,6 +2,11 @@
 {% block sideMenu_block %}
 {% include "transportion/_vehicleList.html" %}
 {% endblock sideMenu_block %}
-{% block functional_block %}{% endblock functional_block %}
-{% block main_block %}{% endblock main_block %}
-{% block info_block %}{% endblock info_block %}
+{% block functional_block %}
+{% include "transportion/_functional.html" %}
+{% endblock functional_block %}
+{% block main_block %}
+{% include "transportion/_map.html" %}
+{% endblock main_block %}
+{% block info_block %}
+{% include "transportion/_info.html" %}{% endblock info_block %}
