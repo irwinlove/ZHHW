@@ -6,7 +6,7 @@ var map = new AMap.Map('mapContainer', {
      resizeEnable: true,
     //center: [114.06667, 22.61667],
     // 设置缩放级别
-    zoom: 12
+    //  zoom: 12
 });
 // 地图类型切换
 map.plugin(["AMap.MapType"], function() {
@@ -45,8 +45,9 @@ map.plugin(["AMap.MapType"], function() {
       if (!cityName) {
         cityName = '深圳市';
       }
-      map.setZoom(12);
+      
       map.setCity(cityName);
+      map.setZoom(12);
     });
      // 加载鹰眼插件
    map.plugin(['AMap.OverView'], function () {
@@ -66,13 +67,13 @@ map.plugin(["AMap.MapType"], function() {
       map.addControl(scale);
     });
 //设置个性化模板
-function refresh(e){
+function refreshMapstyle(e){
       var e=e||event;
       map.setMapStyle(e.target.value);
     }
 //自定义显示内容
  function refreshFeatures(){
-      var boxes = document.getElementsByTagName('input');
+      var boxes = document.getElementById('mapFeatures').getElementsByTagName('input');
       var features = [];
       for(var i = 0 ;i < boxes.length; i += 1){
         if(boxes[i].checked === true){
@@ -81,5 +82,23 @@ function refresh(e){
       }
       map.setFeatures(features);
     }
- 
+//设置地图状态
+ function refreshmapStatus(){
+      var boxes = document.getElementById('mapStatus').getElementsByTagName('input');
+      var mapStatus ={};
+      for(var i = 0 ;i < boxes.length; i += 1){
+        if(boxes[i].checked === true){
+          mapStatus[boxes[i].name]=true;
+        }
+        else
+          mapStatus[boxes[i].name]=false;
+      }
+      map.setStatus(mapStatus);
+    }
+//标注
+map.plugin(["AMap.MouseTool"],function(){
+    var mousetool = new AMap.MouseTool();
+    mousetool.marker(); //使用鼠标工具，在地图上画标记点
+});
+
 </script>
