@@ -1,8 +1,8 @@
 {# uk-height-viewport #}
-<div class="uk-panel uk-panel-box uk-panel-box-hover ">
+<div class="uk-panel uk-panel-box uk-panel-box-hover uk-height-1-1">
     <h3 class="uk-panel-title"><span class="uk-icon-list"></span> 车辆列表</h3>
     <form class="uk-form uk-search" data-uk-search="">
-        <input class="uk-search-field uk-form-width-medium" type="search" placeholder="查找车辆..." autocomplete="off">
+        <input class="uk-search-field uk-form-width-small" type="search" placeholder="查找车辆..." autocomplete="off">
         <button class="uk-button uk-button-small uk-button-primary uk-icon-search"></button>
         <div class="uk-dropdown uk-dropdown-search" aria-expanded="false"></div>
     </form>
@@ -13,8 +13,8 @@
             <option value="">按所属单位</option>
         </select>
     </div>
-    <div class=" uk-scrollable-box " style="height:783px">
-        <ul class="uk-list">
+    <div class=" uk-scrollable-box " style="height:inherit">
+        <ul class="uk-list tree">
             <li>
                 <label>
                     <input type="checkbox"><i class="uk-icon-sitemap"></i>深圳龙澄高科</label>
@@ -234,3 +234,8 @@
         </ul>
     </div>
 </div>
+<script>
+//     $(function(){
+//   $("ul.tree").checkTree();
+// });
+</script>

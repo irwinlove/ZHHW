@@ -4,10 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,IE=Edge,chrome=1">
+    <!-- 强制360浏览器用WebKit内核 -->
+    <meta name="renderer" content="webkit">
     <title>{%block title_block%}--智慧环卫--{%endblock title_block%}</title>
+    <script src="{% static "common/js/jquery.js"%}"></script>
     <link rel="shortcut icon" href="{% static "common/images/favicon.ico" %}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.gradient.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/jqtree.css" %}">
     <script src="http://webapi.amap.com/maps?v=1.3&key=9e38fbc918485d2d70471e29d5223070"></script>
 </head>
 
@@ -39,10 +43,10 @@
     <!-- footer -->
     {% include "_footer.html" %}
     <!-- script -->
-    <script src="{% static "common/js/jquery.js"%}"></script>
     <script src="{% static "common/js/uikit.js" %}"></script>
     <script src="{% static "common/js/components/search.js" %}"></script>
     <script src="{% static "common/js/components/pagination.js" %}"></script>
+    <script src="{% static "common/js/tree.jquery.js" %}"></script>
 </body>
 
 </html>
