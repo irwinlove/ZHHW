@@ -1,9 +1,8 @@
-{# uk-height-viewport #}
 <div class="uk-panel uk-panel-box uk-panel-box-hover uk-height-1-1">
     <h3 class="uk-panel-title"><span class="uk-icon-list"></span> 车辆列表</h3>
     <form id="searchVehicleForm" class="uk-form ">
         <input id="searchVehicle" class=" uk-form-width-small" placeholder="查找车辆..." autocomplete="off">
-        <button class="uk-button uk-button-small uk-button-primary uk-icon-search"></button>
+        <button class="uk-button uk-button-small uk-button-primary uk-icon-search" type="submit"></button>
     </form>
     <div class="uk-form-select" data-uk-form-select>
         <span>选择车辆排列方式：</span>
@@ -146,7 +145,7 @@ $(function() {
             ]
         });
 });
-$("#searchVehicleForm").click(function(e) {
+$("#searchVehicleForm").submit(function(e) {
         e.preventDefault();
         $("#tree").jstree(true).search($("#searchVehicle").val());
     });
