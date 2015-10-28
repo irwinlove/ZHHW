@@ -2,13 +2,15 @@
 from django.db import models
 
 # Create your models here.
-class enterprises(models.Model):
-	"""docstring for enterprises"""
+class Enterprises(models.Model):
+	"""docstring for Enterprises"""
 	name=models.CharField(max_length=40)
 	def __str__(self):
 		return self.name
-class vehicles(models.model):
+class Vehicles(models.Model):
 	"""docstring for vehicles"""
 	licenseNumber=models.CharField(max_length=8)
-	forEnterprise=models.ForeignKey(enterprises)
+	underEnterprise=models.ForeignKey(Enterprises)
+	def __str__(self):
+		return self.licenseNumber
 		
