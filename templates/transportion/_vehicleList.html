@@ -14,7 +14,7 @@
     </div>
     <div class=" uk-scrollable-box " style="">
         <div id="tree">
-            <ul class="uk-list uk-list-striped">
+            <!-- <ul class="uk-list uk-list-striped">
                 <li data-jstree='{"opened":true, "type":"enterprise"}'>深圳龙澄高科
                     <ul>
                         <li data-jstree='{"opened":false, "type":"areatruck"}'>
@@ -96,7 +96,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </div>
@@ -128,26 +128,85 @@ $(function() {
                 "animation": 0,
                 "themes": {
                     // "variant" : "large"
-                }
+                },
+                'data': [{
+                        "id": "ajson1",
+                        "parent": "#",
+                        "text": "Simple root node",
+                        "type": "enterprise"
+                    }, {
+                        "id": "ajson2",
+                        "parent": "#",
+                        "text": "Root node 2"
+                    }, {
+                        "id": "ajson3",
+                        "parent": "ajson2",
+                        "text": "Child 1"
+                    }, {
+                        "id": "ajson4",
+                        "parent": "ajson2",
+                        "text": "Child 2"
+                    }, {
+                        "id": "ajson5",
+                        "parent": "ajson3",
+                        "text": "Child 1.1"
+                    }]
+                    /*  'data': {
+                          'url': function(node) {
+                              return node.id === '#' ?
+                                  'ajax_roots.json' :
+                                  'ajax_children.json';
+                          },
+                          'data': function(node) {
+                              return {
+                                  'id': node.id
+                              };
+                          }
+                      }*/
+                    /*                'data': [
+                                        'Simple root node', {
+                                            'text': 'Root node 2',
+                                            'state': {
+                                                'opened': true,
+                                                'selected': true
+                                            },
+                                            'type': "enterprise",
+                                            'children': [{
+                                                    'text': 'Child 1'
+                                                },
+                                                'Child 2'
+                                            ]
+                                        }
+                                    ]*/
             },
 
-            "conditionalselect": function(node, event) {
+            /*"conditionalselect": function(node, event) {
                 return false;
-            },
+            },*/
             "checkbox": {
                 "keep_selected_style": false
             },
             "state": {
                 "key": "demostate"
             },
-            "plugins": ["checkbox", "changed", "conditionalselect",
+            /*"massload": {
+                "url": "/some/path",
+                "data": function(nodes) {
+                    return {
+                        "ids": nodes.join(",")
+                    };
+                }
+            }*/
+            "plugins": ["checkbox", "changed", 
+            // "conditionalselect",
                 // "contextmenu",
-                "sort", "types", "state", "unique", "search"
+                "sort", "types", "state", "unique", "search",
+                // "massload"
             ]
         });
 });
 $("#searchVehicleForm").click(function(e) {
-        e.preventDefault();
-        $("#tree").jstree(true).search($("#searchVehicle").val());
-    });
+    e.preventDefault();
+    $("#tree").jstree(true).search($("#searchVehicle").val());
+});
 </script>
