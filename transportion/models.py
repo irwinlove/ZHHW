@@ -22,6 +22,19 @@ class Enterprises(models.Model):
 	hierarchys = models.CharField(max_length=1,choices=HIERARCHY_DEPARTMENT)
 	def __unicode__(self):
 		return self.name
+	def toDict(self):
+		if self.hierarchys=='1':
+			return{
+			'id':self.id,
+			'parent':'#',
+			'text':self.name
+			}
+		else:
+			return{
+			'id':self.id,
+			'parent':self.parentId.id,
+			'text':self.name
+			}
 class Vehicles(models.Model):
 	"""docstring for vehicles"""
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -29,3 +42,9 @@ class Vehicles(models.Model):
 	enterprise=models.ForeignKey(Enterprises)
 	def __unicode__(self):
 		return self.licenseNumber
+	def toDict(self):
+		return{
+		'id':str(self.id),
+		'parent':self.enterprise.id,
+		'text':self.licenseNumber
+		}
