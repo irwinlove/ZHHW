@@ -81,7 +81,26 @@
         <button id="marker" class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="在地图上标注位置" href="javascript:void(0)"><span class="uk-icon-map-marker uk-icon-small"></span></button>
         <button class="uk-button uk-button-small uk-button-danger" data-uk-tooltip="{pos:'bottom-left'}" title="显示标注点" href="javascript:void(0)"><span class="uk-icon-eye uk-icon-small "></span></button>
         <button class="uk-button uk-button-small uk-button-primary" data-uk-tooltip="{pos:'bottom-left'}" title="距离测量" onclick="javascript:startRuler()"><span class="uk-icon-compress uk-icon-small"></span></button>
+        <button class="uk-button uk-button-small uk-button-danger" data-uk-tooltip="{pos:'bottom-left'}" title="面积测量,右键结束" onclick="javascript:startMeasureArea()"><span class="uk-icon-superscript uk-icon-small"></span></button>
         <button class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="地图位置搜索" href="javascript:void(0)"><span class="uk-icon-compass uk-icon-small"></span></button>
         <button class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="旋转地图" href="javascript:void(0)" onclick="javascript:rotateMap()"><span class="uk-icon-rotate-right uk-icon-small"></span></button>
+        <div class="uk-button-dropdown uk-margin-small-bottom" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+            <button id="featuresMap" class="uk-button uk-button-small">商务服务<i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-center uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <div id="mapStyle">
+                    <li>
+                        <input type='radio' onchange='refreshMapstyle(event)' checked name='mapStyle' value='normal'>normal</li>
+                    <li>
+                        <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='blue_night'>blue_night</li>
+                    <li>
+                        <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='light'>light</li>
+                    <li>
+                        <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='fresh'>fresh</li>
+                    </div>
+                    
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
