@@ -18,7 +18,7 @@ class Enterprises(models.Model):
 	"""docstring for Enterprises"""
 	HIERARCHY_DEPARTMENT = (('1','一级单位'),('2','二级部门'),('3','三级部门'),('4','四级部门'))
 	name = models.CharField(max_length=50,blank=False)
-	parentId = models.ForeignKey('self',null=True)
+	parentId = models.ForeignKey('self',null=True,blank=True,default=None, related_name='children')
 	hierarchys = models.CharField(max_length=1,choices=HIERARCHY_DEPARTMENT)
 	def __unicode__(self):
 		return self.name
@@ -48,3 +48,15 @@ class Vehicles(models.Model):
 		'parent':self.enterprise.id,
 		'text':self.licenseNumber
 		}
+class GPSdevices(models.Model):
+	"""docstring for GPSdevices"""
+	gpsNo=models.CharField(max_length=10)
+	sim=models.CharField(max_length=11)
+	name=models.CharField(max_length=40)
+	types=models.CharField(max_length=30)
+	manufacturer=models.CharField(max_length=50)
+	remarks=models.CharField(max_length=200)
+	def __unicode__(self):
+		return '%s-%s-%s'%(self.gpsNo,self.name,self.types)
+	
+		

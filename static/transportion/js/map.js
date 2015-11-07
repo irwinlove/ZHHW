@@ -164,7 +164,7 @@ function startMeasureArea() {
             AMap.event.addListenerOnce(eObject,"dblclick",function callback (ev) {
                 // body..
                 eObject.setMap(null);
-                mouseTool.close(true);
+                    mouseTool.close(true);
             })
         });
         mouseTool.measureArea();  //调用鼠标工具的面积量测功能
