@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import uuid
+from transportion.fields import ListField
 # Create your models here.
 # class Enterprises(models.Model):
 # 	"""docstring for Enterprises"""
@@ -59,4 +60,23 @@ class GPSdevices(models.Model):
 	def __unicode__(self):
 		return '%s-%s-%s'%(self.gpsNo,self.name,self.types)
 	
+class markerTypes(models.Model):
+	"""docstring for markerTypes"""
+	name=models.CharField(max_length=50)
+	icons=models.CharField(max_length=50)
+	remarks=models.CharField(max_length=200)
+	def __unicode__(self):
+		return self.name			
+class locationMarkers(models.Model):
+	"""docstring for locationMarkers"""
+	markerNo=models.CharField(max_length=10)
+	name=models.CharField(max_length=50)
+	markertypes=models.ForeignKey(markerTypes)
+	markerMaker=models.CharField(max_length=40,blank=True)
+	address=models.CharField(max_length=100,blank=True)
+	location=models.CharField(max_length=20)
+	lnglatXY=ListField(blank=True)
+	def __unicode__(self):
+		return self.name
+		
 		
