@@ -78,5 +78,3 @@ class locationMarkers(models.Model):
 	lnglatXY=ListField(blank=True)
 	def __unicode__(self):
 		return self.name
-		
-		

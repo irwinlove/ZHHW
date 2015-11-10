@@ -170,3 +170,81 @@ function startMeasureArea() {
         mouseTool.measureArea();  //调用鼠标工具的面积量测功能
 
     }
+
+var lnglatMarker={
+    // lngX: 0,
+    // latY:0,
+}
+function startMarker () {
+     //为地图注册click事件获取鼠标点击出的经纬度坐标
+    var clickEventListener = map.on( 'click', function(e) {
+        lnglatMarker.lngX = e.lnglat.getLng();
+        lnglatMarker.latY = e.lnglat.getLat();
+        geocoder(lnglatMarker);
+    });
+}
+
+function addmarker(d) {
+        var lngX = d.getLng();
+        var latY = d.getLat();
+        var markerOption = {
+            map: map,
+            icon:"http://webapi.amap.com/theme/v1.3/markers/n/mark_b"+(i+1)+".png",
+            position: [lngX, latY]
+        };
+        var mar = new AMap.Marker(markerOption);
+        marker.push([lngX, latY]);
+        map.setFitView();
+        var infoWindow = new AMap.InfoWindow({
+            content: d.formattedAddress,
+            autoMove: true,
+            size: new AMap.Size(150, 0),
+            offset: {x: 0, y: -30}
+        });
+        windowsArr.push(infoWindow);
+
+        var aa = function(e) {
+            infoWindow.open(map, mar.getPosition());
+        };
+        mar.on( "mouseover", aa);
+    }
+
+function geocoder(lnglatXY) {
+        var MGeocoder;
+        //加载地理编码插件
+        AMap.service(["AMap.Geocoder"], function() {
+            MGeocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            //逆地理编码
+            MGeocoder.getAddress(lnglatXY, function(status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    geocoder_CallBack(result);
+                }
+            });
+        });
+        //加点
+        addmarker(lnglatXY);
+    }
+
+  //回调函数
+    function geocoder_CallBack(data) {
+        var resultStr = "";
+        var poiinfo = "";
+        var address;
+        //返回地址描述
+        address = data.regeocode.formattedAddress;
+        //返回周边兴趣点信息
+        poiinfo += "<table style='width:300px;cursor:pointer;'>";
+        for (var j = 0; j < data.regeocode.pois.length; j++) {
+            var color = j % 2 === 0 ? '#fff' : '#eee';
+            poiinfo += "<tr onmouseover='onMouseOver(\"" + data.regeocode.pois[j].location.toString() + 
+                       "\")' style='background-color:" + color + "; margin:0; padding:0;'><td>" + 
+                        data.regeocode.pois[j].name + "</td><td>距离：" + data.regeocode.pois[j].distance + "米</td></tr>";
+        }
+        poiinfo += "</table>";
+        //返回结果拼接输出
+        resultStr = "<div style=\"padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\">" + "<b>地址</b>：" + address + "<hr/><b>周边兴趣点信息</b>：<br/>" + poiinfo + "</div>";
+        document.getElementById("result").innerHTML = resultStr;
+    }
