@@ -10,7 +10,7 @@
     <title>{%block title_block%}--智慧环卫--{%endblock title_block%}</title>
     <script src="{% static "common/js/jquery.js"%}"></script>
     <link rel="shortcut icon" href="{% static "common/images/favicon.ico" %}" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.gradient.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.gradient.min.css" %}">
 <!--     <link rel="stylesheet" type="text/css" href="{% static "common/css/jstree.css" %}">
 <script src="{% static "common/js/jstree.js" %}"></script> -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
@@ -24,30 +24,23 @@
         <!-- navgation 导航栏-->
     {% include "_navigation.html" %}
     </div>
-    <div class=" ">
-        <div class="uk-grid uk-grid-collapse " >
-            <div class="uk-width-medium-1-6">
-                {# 侧面菜单栏 #}
-                {% block sideMenu_block %}
-                {% endblock sideMenu_block %}
-            </div>
-            <div class="uk-width-medium-5-6">
-                {# 功能区 #}
-                {% block functional_block %}
-                {% endblock functional_block %}
-                {# 地图区 #}
-                {% block main_block %}
-                {% endblock main_block %}
-                {# 信息区 #}
-                {% block info_block %}
-                {% endblock info_block %}   
-            </div>
+    <div class="uk-grid uk-grid-collapse " >
+        <div class="uk-width-medium-1-1">
+            {# 功能区 #}
+            {% block functional_block %}
+            {% endblock functional_block %}
+            {# 地图区 #}
+            {% block main_block %}
+            {% endblock main_block %}
+            {# 信息区 #}
+            {% block info_block %}
+            {% endblock info_block %}   
         </div>
     </div>
     <!-- footer -->
     {% include "_footer.html" %}
         <!-- script -->
-    <script src="{% static "common/js/uikit.js" %}"></script>
+    <script src="{% static "common/js/uikit.min.js" %}"></script>
     <script src="{% static "common/js/components/search.js" %}"></script>
     <script src="{% static "common/js/components/pagination.js" %}"></script>
     

@@ -1,12 +1,7 @@
 {% extends "base.html" %} {% block title_block %} GPS车辆监控 {% endblock title_block %} 
-{% block sideMenu_block %}
-{% include "transportion/_vehicleList.html" %}
-{% endblock sideMenu_block %}
 {% block functional_block %}
 {% include "transportion/_functional.html" %}
 {% endblock functional_block %}
 {% block main_block %}
-{% include "transportion/_map.html" %}
+{% include "_main-content.html" %}
 {% endblock main_block %}
-{% block info_block %}
-{% include "transportion/_info.html" %}{% endblock info_block %}

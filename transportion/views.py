@@ -22,3 +22,5 @@ def toDicts(objs):
     for o in objs:
         obj_arr.append(o.toDict())
     return obj_arr
+def get_map(request):
+    return render_to_response('transportion/map.html',{},)

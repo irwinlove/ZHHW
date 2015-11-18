@@ -1,0 +1,80 @@
+<div class="uk-panel uk-panel-box uk-padding-vertical-remove">
+    <div class="uk-button-group">
+        <div class="uk-button-dropdown uk-margin-small-bottom uk-margin-small-left" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+            <button id="featuresMap" class="uk-button uk-button-small">个性化地图<i class="uk-icon-caret-down"></i></button>
+            <div class="uk-dropdown uk-dropdown-center uk-dropdown-small">
+                <ul class="uk-nav uk-nav-dropdown">
+                    <li class="uk-nav-header">设置模板</li>
+                    <div id="mapStyle">
+                        <li>
+                            <input type='radio' onchange='refreshMapstyle(event)' checked name='mapStyle' value='normal'>normal</li>
+                        <li>
+                            <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='blue_night'>blue_night</li>
+                        <li>
+                            <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='light'>light</li>
+                        <li>
+                            <input type='radio' onchange='refreshMapstyle(event)' name='mapStyle' value='fresh'>fresh</li>
+                    </div>
+                    <li class="uk-nav-divider"></li>
+                    <li class="uk-nav-header">显示内容</li>
+                    <div id="mapFeatures">
+                        <li>
+                            <input type='checkbox' onchange='refreshFeatures()' checked name='bg'>背景</li>
+                        <li>
+                            <input type='checkbox' onchange='refreshFeatures()' checked name='road'>道路</li>
+                        <li>
+                            <input type='checkbox' onchange='refreshFeatures()' checked name='building'>建筑物</li>
+                        <li>
+                            <input type='checkbox' onchange='refreshFeatures()' checked name='point'>标注</li>
+                    </div>
+                    <li class="uk-nav-divider"></li>
+                    <li class="uk-nav-header">设置地图状态</li>
+                    <div id="mapStatus">
+                        <li>
+                            <input type='checkbox' checked onchange='refreshmapStatus()' name='dragEnable'>允许拖拽地图</li>
+                        <li>
+                            <input type='checkbox' checked onchange='refreshmapStatus()' name='keyboardEnable'>允许键盘平移|旋转地图</li>
+                        <li>
+                            <input type='checkbox' checked onchange='refreshmapStatus()' name='doubleClickZoom'>允许双击放大地图</li>
+                        <li>
+                            <input type='checkbox' checked onchange='refreshmapStatus()' name='isHotspot'>允许叠加地图热点</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <button class="uk-button uk-button-small uk-button-primary" data-uk-tooltip="{pos:'bottom-left'}" title="搜索车辆并在地图上显示位置" href="javascript:void(0)"><span class="uk-icon-search uk-icon-small"></span></button>
+        <div class="uk-button-dropdown uk-margin-small-bottom" data-uk-dropdown="{mode:'click'}" aria-haspopup="true" aria-expanded="false">
+            <button id="startMarker" class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="在地图上标注位置" ><i class="uk-icon-map-marker uk-icon-small"></i></button>
+             <div id="markerStyle" class="uk-dropdown uk-dropdown-small uk-dropdown-center">
+                                    <ul class="uk-nav uk-nav-dropdown">
+                                        <input type='radio' onchange='javascript:refreshMarkerStyle(event)' name='markerStyle' value='station'>转运站<i class="uk-icon-map-marker uk-icon-small" style="color:green"></i></li>
+                                        <input type='radio' onchange='javascript:refreshMarkerStyle(event)' name='markerStyle' value='trash'>垃圾桶<i class="uk-icon-trash uk-icon-small" style="color:green"></i></li>
+                                        <input type='radio' onchange='javascript:refreshMarkerStyle(event)' name='markerStyle' value='key'>关键点<i class="uk-icon-asterisk uk-icon-small" style="color:red"></i></li>
+                                    </ul>
+            </div>
+        </div>
+        <button class="uk-button uk-button-small uk-button-danger" data-uk-tooltip="{pos:'bottom-left'}" title="显示标注点" href="javascript:void(0)"><span class="uk-icon-eye uk-icon-small"></span></button>
+        <button class="uk-button uk-button-small uk-button-primary" data-uk-tooltip="{pos:'bottom-left'}" title="距离测量" onclick="javascript:startRuler()"><span class="uk-icon-compress uk-icon-small"></span></button>
+        <button class="uk-button uk-button-small uk-button-danger" data-uk-tooltip="{pos:'bottom-left'}" title="面积测量,右键结束" onclick="javascript:startMeasureArea()"><span class="uk-icon-superscript uk-icon-small"></span></button>
+        <button class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="地图位置搜索" href="javascript:void(0)"><span class="uk-icon-compass uk-icon-small"></span></button>
+        <button class="uk-button uk-button-small uk-button-success" data-uk-tooltip="{pos:'bottom-left'}" title="旋转地图" href="javascript:void(0)" onclick="javascript:rotateMap()"><span class="uk-icon-rotate-right uk-icon-small"></span></button>
+        <div class="uk-button-dropdown uk-margin-small-bottom" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
+            <button class="uk-button uk-button-small uk-button-success"><span class="uk-icon-map-marker">商务服务<i class="uk-icon-caret-down"></i></button>
+                <div class="uk-dropdown uk-dropdown-small">
+                    <ul class="uk-nav uk-nav-dropdown">
+                        <li><a href="javascript:void">位置搜索</a></li>
+                        <li><a href="javascript:void">车辆导航</a></li>
+                        <li><a href="javascript:void">天气地图</a></li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+</div>
+<div id="mapContainer" class="uk-responsive-height uk-responsive-width" style="height:600px" ></div>
+<div class="uk-text-bold uk-text-center uk-margin-bottom-remove">
+        <i class="uk-text-danger">在线车辆:20 </i>
+        <i class="uk-text-success">运行车辆：2 </i>
+        <i class="uk-text-muted">静止车辆：2 </i>
+        <i>总车辆：40</i>
+    </div>
+{% include "transportion/_info.html" %}
