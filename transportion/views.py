@@ -8,7 +8,8 @@ import models
 from transportion.models import Vehicles,Enterprises
 # Create your views here.
 def home(request):
-	return render_to_response('transportion/index.html',{},)
+	# return render_to_response('transportion/index.html',{},)
+    return render_to_response('_base.html',{},)
 def get_tree(request):
     all_vehicles=Vehicles.objects.all()
     all_dicts=toDicts(all_vehicles)
@@ -23,4 +24,4 @@ def toDicts(objs):
         obj_arr.append(o.toDict())
     return obj_arr
 def get_map(request):
-    return render_to_response('transportion/map.html',{},)
+    return render_to_response('transportion/maps.html',{},)

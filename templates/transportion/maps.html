@@ -1,0 +1,27 @@
+<!DOCTYPE html>{%load staticfiles %}
+<html class="uk-height-1-1">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>map-container</title>
+	<link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.gradient.css" %}">
+	<script src="{% static "common/js/jquery.js"%}"></script>
+	<script src="{% static "common/js/uikit.min.js"%}"></script>
+	<script src="http://webapi.amap.com/maps?v=1.3&key=9e38fbc918485d2d70471e29d5223070"></script>
+	<script src="{% static "transportion/js/map-test.js"%}"></script>
+</head>
+<body class="uk-height-1-1">
+	<div class="uk-grid">
+		<div class="uk-width-1-1">
+			{% include "transportion/_map.html" %}
+		<div class="uk-text-bold uk-text-center uk-margin-bottom-remove">
+        	<i class="uk-text-danger">在线车辆:20 </i>
+        	<i class="uk-text-success">运行车辆：2 </i>
+        	<i class="uk-text-muted">静止车辆：2 </i>
+        	<i>总车辆：40</i>
+    	</div>
+    	{% include "transportion/_info.html" %}
+		</div>
+	</div>
+</body>
+</html>

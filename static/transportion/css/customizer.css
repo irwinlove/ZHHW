@@ -1,0 +1,74 @@
+/* Customizer
+ ========================================================================== */
+
+.tr-customizer,
+.tr-customizer body {
+    height: 100%;
+    overflow: hidden;
+}
+
+/*
+ * Sidebar
+ */
+
+.tr-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    width: 300px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.tr-sidebar-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 110px;
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.tr-sidebar-content {
+    position: absolute;
+    top: 151px;
+    bottom: 146px;
+    left: 0;
+    right: 0;
+    padding: 20px 20px 0 30px;
+    overflow-y: scroll;
+    /*overflow-x: scroll;*/
+}
+
+.tr-sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 105px;
+    padding: 20px 30px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.tr-sidebar-footer .uk-grid + .uk-grid { margin-top: 10px; }
+
+/*
+ * Iframe wrapper
+ */
+
+.tr-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 310px;
+    right: 0;
+    margin-left: 0;
+}
+#tr-map-preview{
+    width:100%;
+    height:740px;
+}
+/* Fixed links in navbar not clickable caused by iframe overlay */
+.tr-navbar { position: relative; }

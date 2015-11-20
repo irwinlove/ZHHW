@@ -1,0 +1,98 @@
+<!DOCTYPE html> {%load staticfiles %}
+<html class="tr-customizer" dir="ltr" >
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1">
+    <!-- 强制360浏览器用WebKit内核 -->
+    <!--<meta name="renderer" content="webkit">-->
+    <title>{%block title_block%}--智慧环卫--{%endblock title_block%}</title>
+    <script src="{% static "common/js/jquery.js"%}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "transportion/css/customizer.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/components/datepicker.gradient.css" %}">
+    
+    <link rel="shortcut icon" href="{% static "common/images/favicon.ico" %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/uikit.gradient.min.css" %}">
+<!-- <link rel="stylesheet" type="text/css" href="{% static "common/css/jstree.css" %}">
+<script src="{% static "common/js/jstree.js" %}"></script> -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/themes/default/style.min.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jstree/3.0.9/jstree.min.js"></script>
+<script src="{% static "common/js/uikit.min.js" %}"></script>
+<script src="{% static "common/js/components/search.js" %}"></script>
+<script src="{% static "common/js/components/datepicker.js" %}"></script>
+<script src="{% static "common/js/components/pagination.js" %}"></script>
+<!-- <script src="http://webapi.amap.com/maps?v=1.3&key=9e38fbc918485d2d70471e29d5223070"></script>
+<script src="{% static "transportion/js/map.js"%}"></script> -->
+</head>
+
+<body>
+  <div id="transportion">
+  	<div class="tr-sidebar">
+  		<header class="tr-sidebar-header">
+  			<h3 class="tr-sidebar-title uk-icon-list-alt">车辆列表</h3>
+                    <div class="uk-form">
+                        <div class="uk-form-row">
+                            <form id="searchVehicleForm" class="uk-search">
+        						<input id="searchVehicle" class="uk-search-field " placeholder="输入车牌、企业名称查找..." autocomplete="off">
+        						<button class="uk-button uk-button-primary uk-icon-search"></button>
+    						</form>
+                        </div>
+                        <div class="uk-form-row">
+                            <div class="uk-grid uk-grid-medium">
+                                <div class="uk-width-1-2">
+                                    <label><input type="checkbox" name="areas">区域分类</label>
+                                </div>
+                                <div class="uk-width-1-2">
+                                    <label><input type="checkbox" name="enterprizes">企业分类</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  		</header><!-- /header -->
+  		<section class="tr-sidebar-content">
+  			{% include "transportion/_vehicleList.html" %}
+  		</section>
+  		<footer class="tr-sidebar-footer">
+  			<div class="uk-form">
+  				<fieldset data-uk-margin>
+  			        <div class="uk-form-row uk-text-center">
+  			        	<input type="text" placeholder="开始时间" data-uk-datepicker="{weekstart:1,format:'YYYY-MM-DD HH:mm:SS', pos: 'auto'}" >
+  			        </div>		
+  			        <div class="uk-form-row uk-text-center">
+  			        	<input type="text" placeholder="结束时间" data-uk-datepicker="{weekstart:1,format:'YYYY-MM-DD HH:mm:SS', pos: 'auto'}">	
+  			        </div>			
+  			        <div class="uk-form-row uk-text-center">
+  			        	<button class="uk-button">查询</button>
+  			        </div>
+  			    </fieldset>
+  			</div>
+        </footer>
+  	</div>
+  	<div class="tr-wrapper">
+      {% include "_navigation.html" %}
+      {% include "transportion/_functional.html" %}
+      <div id="tabs">
+        <ul class="uk-tab" data-uk-tab="{connect:'#main-content'}">
+        <li class="uk-active"><a href="vehicleLocator">车辆定位<i class="uk-icon-close"></i></a></li>
+      <li><a href="vehicleTrackHistory">行车历史记录<i class="uk-icon-close"></i></a></li>
+      <li><a href="vehicleTrackHistory">行车历史轨迹<i class="uk-icon-close"></i></a></li>
+      </ul>
+      </div>
+    <div id="main-content" class="uk-overflow-container uk-switcher">
+      <div id="#vehicleLocator">
+        {% include "transportion/RTLS.html" %}  
+      </div>
+<div id="#vehicleTrackHistory">        
+  {% include "transportion/trackHistory.html" %}
+</div>
+<div id="#vehicleTrack">        
+  {% include "transportion/track.html" %}
+</div>
+    </div>
+  	{% include "_footer.html" %}	
+  	</div>
+  </div>
+</body>
+
+</html>
