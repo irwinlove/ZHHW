@@ -1,9 +1,10 @@
 $(document).ready(function() {
-    $("#functionMenu a").click(function() {
+    $("a").filter('[target=tabs]').click(function() {
         addTab($(this));
+        console.log($(this));
     });
 
-    $('#tabs a.tab').live('click', function() {
+    /*$('#tabs a.tab').live('click', function() {
         // Get the tab name
         var contentname = $(this).attr("id") + "_content";
 
@@ -36,26 +37,37 @@ $(document).ready(function() {
             var firsttabid = $(firsttab).find("a.tab").attr("id");
             $("#" + firsttabid + "_content").show();
         }
-    });
+    });*/
 });
 
 function addTab(link) {
     // If tab already exist in the list, return
-    if ($("#" + $(link).attr("rel")).length != 0)
+    if ($("#" + $(link).attr("rel")).length != 0) {
+        $("#tabs li").removeClass("uk-active");
+        $("#" + $(link).attr("rel")).addClass("uk-active");
+        $("#content div").removeClass("uk-active");
+        $("#" + $(link).attr("rel") + "_content'").addClass("uk-active");
+        $("#" + $(link).attr("rel") + "_content'").attr('aria-hidden', 'false');
         return;
+    };
+
 
     // hide other tabs
-    $("#tabs li").removeClass("current");
-    $("#content p").hide();
+    $("#tabs li").removeClass("uk-active");
+    $("#content div").removeClass("uk-active");
+    $("#content div").attr('aria-hidden', 'true');
 
     // add new tab and related content
-    $("#tabs").append("<li class='current'><a class='tab' id='" +
-        $(link).attr("rel") + "' href='#'>" + $(link).html() +
-        "</a><a href='#' class='remove'>x</a></li>");
-
-    $("#content").append("<p id='" + $(link).attr("rel") + "_content'>" +
-        $(link).attr("title") + "</p>");
+    $("#tabs").append("<li class='uk-active'><a "+ " href='" + $(link).attr("rel") + "'>" + $(link).html() +
+        "<i class='uk-icon-close'></i></a></li>");
+    //request new tab html
+    var urlName=$(link).attr("rel");
+    var ajaxhtml = $.ajax(urlName, {
+        dataType: 'html'
+    });
+    $("#content").append("<div id='#" + $(link).attr("rel") + " class='uk-active' aria-hidden='false'" + ">" +
+        ajaxhtml.innerHTML+ "</div>");
 
     // set the newly added tab as current
-    $("#" + $(link).attr("rel") + "_content").show();
+    //$("#" + $(link).attr("rel") + "_content").show();
 }

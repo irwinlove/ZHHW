@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', 'transportion.views.home', name='transportion_index'),
     url(r'^ajax/$', 'transportion.views.get_tree', name='ajax_tree'),
     url(r'^map/$', 'transportion.views.get_map', name='map'),
+    url(r'^realTimeLocator/$', 'transportion.views.get_rtls', name='realTimeLocator'),
 ]
