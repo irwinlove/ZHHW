@@ -25,5 +25,11 @@ def toDicts(objs):
     return obj_arr
 def get_map(request):
     return render_to_response('transportion/maps.html',{},)
-def get_rtls(request):
+def get_realTimeLocator(request):
     return  render_to_response('transportion/realTimeLocator.html')
+def get_allTimeLocator(request):
+    return  render_to_response('transportion/allTimeLocator.html')
+def get_tracks(request):
+    return  render_to_response('transportion/tracks.html')
+def get_trackHistory(request):
+    return  render_to_response('transportion/trackHistory.html')

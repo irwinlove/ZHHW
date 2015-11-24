@@ -1,73 +1,67 @@
 $(document).ready(function() {
     $("a").filter('[target=tabs]').click(function() {
         addTab($(this));
-        console.log($(this));
     });
-
-    /*$('#tabs a.tab').live('click', function() {
-        // Get the tab name
-        var contentname = $(this).attr("id") + "_content";
-
-        // hide all other tabs
-        $("#content p").hide();
-        $("#tabs li").removeClass("current");
-
-        // show current tab
-        $("#" + contentname).show();
-        $(this).parent().addClass("current");
-    });
-
-    $('#tabs a.remove').live('click', function() {
-        // Get the tab name
-        var tabid = $(this).parent().find(".tab").attr("id");
-
-        // remove tab and related content
-        var contentname = tabid + "_content";
-        $("#" + contentname).remove();
-        $(this).parent().remove();
-
-        // if there is no current tab and if there are still tabs left, show the first one
-        if ($("#tabs li.current").length == 0 && $("#tabs li").length > 0) {
-
-            // find the first tab    
-            var firsttab = $("#tabs li:first-child");
-            firsttab.addClass("current");
-
-            // get its link name and show related content
-            var firsttabid = $(firsttab).find("a.tab").attr("id");
-            $("#" + firsttabid + "_content").show();
-        }
-    });*/
 });
 
 function addTab(link) {
     // If tab already exist in the list, return
-    if ($("#" + $(link).attr("rel")).length != 0) {
+    if ($("#tab_" + $(link).attr("rel")).length != 0) {
         $("#tabs li").removeClass("uk-active");
-        $("#" + $(link).attr("rel")).addClass("uk-active");
+        $("#tab_" + $(link).attr("rel")).addClass("uk-active");
         $("#content div").removeClass("uk-active");
-        $("#" + $(link).attr("rel") + "_content'").addClass("uk-active");
-        $("#" + $(link).attr("rel") + "_content'").attr('aria-hidden', 'false');
+        $("#content div").attr('aria-hidden', 'true');
+        $("#" + $(link).attr("rel")).addClass("uk-active");
+        $("#" + $(link).attr("rel")).attr('aria-hidden', 'false');
         return;
     };
-
-
     // hide other tabs
     $("#tabs li").removeClass("uk-active");
     $("#content div").removeClass("uk-active");
     $("#content div").attr('aria-hidden', 'true');
 
     // add new tab and related content
-    $("#tabs").append("<li class='uk-active'><a "+ " href='" + $(link).attr("rel") + "'>" + $(link).html() +
-        "<i class='uk-icon-close'></i></a></li>");
-    //request new tab html
-    var urlName=$(link).attr("rel");
-    var ajaxhtml = $.ajax(urlName, {
-        dataType: 'html'
+    $("#tabs").append("<li id='tab_" + $(link).attr("rel") + "' class='uk-active'><a " + " href='#" + $(link).attr("rel") + "'>" + $(link).html() +
+        "<i class='uk-close'></i></a></li>");
+    $("#tab_" + $(link).attr("rel") + " .uk-close").click(function() {
+            removeTab($(this));
+        })
+        //request new tab html
+    var urlName = $(link).attr("rel");
+    $.get(urlName, function(data) {
+        var div = document.createElement('div');
+        div.id = $(link).attr("rel");
+        $(div).addClass('uk-active');
+        $(div).attr('aria-hidden', false);
+        $(div).html(data);
+        $("#content").append($(div));
     });
-    $("#content").append("<div id='#" + $(link).attr("rel") + " class='uk-active' aria-hidden='false'" + ">" +
-        ajaxhtml.innerHTML+ "</div>");
+}
 
-    // set the newly added tab as current
-    //$("#" + $(link).attr("rel") + "_content").show();
+function removeTab(link) {
+    console.log(link);
+    var currentTab = $(link).parent().parent();
+    var currentTabContentid = $(link).parent().attr('href');
+    var prevTab = currentTab.prev();
+    var prevTabContentid = prevTab.find('a').attr('href');
+    var nextTab = currentTab.next();
+    var nextTabContentid = nextTab.find('a').attr('href');
+    if (currentTab.hasClass('uk-active')) {
+        if (nextTab.length != 0) {
+            currentTab.remove();
+            $(currentTabContentid).remove();
+            nextTab.addClass('uk-active');
+            $(nextTabContentid).addClass('uk-active');
+            $(nextTabContentid).attr('aria-hidden', false);
+        } else {
+            currentTab.remove();
+            $(currentTabContentid).remove();
+            prevTab.addClass('uk-active');
+            $(prevTabContentid).addClass('uk-active');
+            $(prevTabContentid).attr('aria-hidden', false);
+        }
+    } else {
+        currentTab.remove();
+        $(currentTabContentid).remove();
+    };
 }
