@@ -14,13 +14,42 @@ from transportion.fields import ListField
 # 	name=models.CharField(max_length=40)
 # 	def __unicode__(self):
 # 		return self.name
-
+class Regions(models.Model):
+	"""docstring for regions"""
+	LEVEL_NAME = (('1','省/直辖市/自治区'),('2','市'),('3','区/县'))
+	id=models.CharField(primary_key=True,max_length=6)
+	pid=models.CharField(max_length=6)
+	name=models.CharField(max_length=20)
+	level=models.CharField(max_length=1,choices=LEVEL_NAME)
+	zipCode=models.CharField(max_length=6,null=True)
+	tel=models.CharField(max_length=4,null=True)
+	def __unicode__(self):
+		return self.name
+	def toDict(self):
+		if self.level=='2':
+			return{
+			'id':self.id,
+			'parent':'#',
+			# 'pId':'#',
+			'text':self.name
+			# 'name':self.name
+			}
+		if self.level=='3':
+			return{
+			'id':self.id,
+			'parent':self.pid,
+			# 'pId':self.parentId.id,
+			'text':self.name
+			# 'name':self.name
+			}
+		
 class Enterprises(models.Model):
 	"""docstring for Enterprises"""
 	HIERARCHY_DEPARTMENT = (('1','一级单位'),('2','二级部门'),('3','三级部门'),('4','四级部门'))
 	name = models.CharField(max_length=50,blank=False)
 	parentId = models.ForeignKey('self',null=True,blank=True,default=None, related_name='children')
 	hierarchys = models.CharField(max_length=1,choices=HIERARCHY_DEPARTMENT)
+	region=models.ForeignKey(Regions,null=True,blank=True,default=None,related_name='region_belong')
 	def __unicode__(self):
 		return self.name
 	def toDict(self):
@@ -28,14 +57,19 @@ class Enterprises(models.Model):
 			return{
 			'id':self.id,
 			'parent':'#',
+			# 'pId':'#',
 			'text':self.name
+			# 'name':self.name
 			}
 		else:
 			return{
 			'id':self.id,
 			'parent':self.parentId.id,
+			# 'pId':self.parentId.id,
 			'text':self.name
+			# 'name':self.name
 			}
+
 class Vehicles(models.Model):
 	"""docstring for vehicles"""
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -48,6 +82,16 @@ class Vehicles(models.Model):
 		'id':str(self.id),
 		'parent':self.enterprise.id,
 		'text':self.licenseNumber
+		# 'pId':self.enterprise.id,
+		# 'name':self.licenseNumber
+		}
+	def toRegionDict(self):
+		return{
+		'id':str(self.id),
+		'parent':self.enterprise.region.id,
+		'text':self.licenseNumber
+		# 'pId':self.enterprise.id,
+		# 'name':self.licenseNumber
 		}
 class GPSdevices(models.Model):
 	"""docstring for GPSdevices"""
