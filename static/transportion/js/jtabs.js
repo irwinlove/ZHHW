@@ -1,6 +1,29 @@
 $(document).ready(function() {
     $("a").filter('[target=tabs]').click(function() {
-        addTab($(this));
+        if (addTab($(this))) {
+            if ($(this).attr("rel") == "trackHistory" || $(this).attr("rel") == "tracks") {
+                $("#starter").attr('disabled', false);
+                $("#ender").attr('disabled', false);
+                $("#bt_commit").text('历史/轨迹查询');
+            };
+            if ($(this).attr("rel") == "realTimeLocator" || $(this).attr("rel") == "allTimeLocator") {
+                $("#starter").attr('disabled', true);
+                $("#ender").attr('disabled', true);
+                $("#bt_commit").text('实时/连续定位');
+            };
+        };
+    });
+    $('[data-uk-tab]').on('change.uk.tab', function(event, item) {
+        if (item.attr('id') == 'tab_trackHistory' || item.attr('id') == 'tab_tracks') {
+            $("#starter").attr('disabled', false);
+            $("#ender").attr('disabled', false);
+            $("#bt_commit").text('历史/轨迹查询');
+        };
+        if (item.attr('id') == 'tab_realTimeLocator' || item.attr('id') == 'tab_allTimeLocator') {
+            $("#starter").attr('disabled', true);
+            $("#ender").attr('disabled', true);
+            $("#bt_commit").text('实时/连续定位');
+        };
     });
 });
 
@@ -13,7 +36,7 @@ function addTab(link) {
         $("#content div").attr('aria-hidden', 'true');
         $("#" + $(link).attr("rel")).addClass("uk-active");
         $("#" + $(link).attr("rel")).attr('aria-hidden', 'false');
-        return;
+        return false;
     };
     // hide other tabs
     $("#tabs li").removeClass("uk-active");
@@ -36,10 +59,11 @@ function addTab(link) {
         $(div).html(data);
         $("#content").append($(div));
     });
+    return true;
 }
 
 function removeTab(link) {
-    console.log(link);
+    //console.log(link);
     var currentTab = $(link).parent().parent();
     var currentTabContentid = $(link).parent().attr('href');
     var prevTab = currentTab.prev();
