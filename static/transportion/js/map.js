@@ -48,7 +48,7 @@ $(document).ready(function($) {
         });
     })();
     //设置城市
-    AMap.event.addDomListener(document.getElementById('selectCity'), 'click', function() {
+    /*AMap.event.addDomListener(document.getElementById('selectCity'), 'click', function() {
         var cityName = document.getElementById('selectCity').value;
         if (!cityName) {
             cityName = '深圳市';
@@ -56,7 +56,7 @@ $(document).ready(function($) {
 
         map.setCity(cityName);
         map.setZoom(12);
-    });
+    });*/
     // 加载鹰眼插件
     map.plugin(['AMap.OverView'], function() {
         overView = new AMap.OverView({
@@ -226,6 +226,7 @@ function geocoder_CallBack(data) {
     //返回地址描述
     addmarker(lnglatXY.length, lnglatXY[lnglatXY.length - 1], data.regeocode.formattedAddress);
 }
+
 //加点
 function addmarker(i, d, address) {
     var lngX = d[0];
@@ -266,4 +267,93 @@ function addmarker(i, d, address) {
         infoWindow.open(map, mar.getPosition());
     };
     mar.on("mouseover", aa);
+}
+//实时定位
+var cluster;
+// positionMarkers = [];
+
+function realTimeLocator(data) {
+    var positionMarkers = [];
+    $.each(data, function(i, item) {
+        // i 为索引，item为遍历值
+        positionMarker = {
+            position: [item.fields.lngX, item.fields.latY],
+            icon: new AMap.Icon({
+                /*size: new AMap.Size(48, 48), //图标大小
+                image: "/static/image/truck48.png",*/
+                size: new AMap.Size(57, 32), //图标大小
+                image: "/static/image/car_01.png",
+                imageOffset: new AMap.Pixel(0, 0)
+            })
+        };
+        positionMarkers.push(positionMarker);
+    });
+    map.clearMap(); // 清除地图覆盖物
+    var i = 0;
+    console.log(positionMarkers);
+    positionMarkers.forEach(function(marker) {
+        new AMap.Marker({
+            map: map,
+            icon: marker.icon,
+            //content: marker.contents,
+            position: [marker.position[0], marker.position[1]],
+            offset: new AMap.Pixel(-12, -36)
+        });
+        console.log("add marker " + i);
+        i++;
+    });
+    map.setFitView();
+    addCluster(positionMarkers);
+}
+//历史轨迹回放
+
+function tracks(data) {
+    // body...
+    var tracksMarker,lineArr = [];
+    $.each(data, function(i, item) {
+        lineArr.push([item.fields.lngX, item.fields.latY]);
+    });
+    map.clearMap(); // 清除地图覆盖物
+    tracksMarker = new AMap.Marker({
+            map: map,
+            position: lineArr[0],
+            icon: new AMap.Icon({
+                size: new AMap.Size(57, 32), //图标大小
+                image: "/static/image/car_01.png",
+                imageOffset: new AMap.Pixel(0, 0)
+            }),
+            offset: new AMap.Pixel(-26, -13),
+            autoRotation: true
+        });
+    // 绘制轨迹
+    console.log("绘制轨迹");
+    var polyline = new AMap.Polyline({
+        map: map,
+        path: lineArr,
+        strokeColor: "#00A", //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 4, //线宽
+        strokeStyle: "solid" //线样式
+    });
+    map.setFitView();
+    var trackSpeed=document.getElementById('trackSpeed').value;
+    AMap.event.addDomListener(document.getElementById('trackSpeed'), 'change', function() {
+        trackSpeed=document.getElementById('trackSpeed').value;
+        tracksMarker.stopMove();
+    }, false);
+    AMap.event.addDomListener(document.getElementById('startTracks'), 'click', function() {
+        tracksMarker.moveAlong(lineArr, trackSpeed);
+    }, false);
+    AMap.event.addDomListener(document.getElementById('stopTracks'), 'click', function() {
+        tracksMarker.stopMove();
+    }, false);
+}
+function addCluster(markers) {
+    if (cluster) {
+        console.log("add cluster xxxx");
+        cluster.setMap(null);
+    };
+    map.plugin(["AMap.MarkerClusterer"], function() {
+        cluster = new AMap.MarkerClusterer(map, markers);
+    });
 }

@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transportion', '0004_auto_20151107_1652'),
+        ('transportion', '0002_gpsrtdatas'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='gpsdevices',
-            name='parentId',
-            field=models.ForeignKey(related_name='children', default=None, blank=True, to='transportion.GPSdevices', null=True),
+            name='vehicleId',
+            field=models.ForeignKey(related_name='vehicles_fixedOn', default=None, blank=True, to='transportion.Vehicles', null=True),
         ),
     ]

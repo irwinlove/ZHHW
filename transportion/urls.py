@@ -12,5 +12,8 @@ urlpatterns = [
     url(r'^allTimeLocator/$', 'transportion.views.get_allTimeLocator', name='allTimeLocator'),
     url(r'^tracks/$', 'transportion.views.get_tracks', name='tracks'),
     url(r'^trackHistory/$', 'transportion.views.get_trackHistory', name='trackHistory'),
+    url(r'^getRealTimeGPSData/$', 'transportion.views.getRealTimeGPSData', name='RealTimeGPSData'),
+    url(r'^getHistTracks/$', 'transportion.views.getHistTracks', name='getHistTracks'),
+    
     # url(r'^tracks/$', 'transportion.views.get_tracks', name='tracks'),
 ]

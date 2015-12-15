@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-import uuid
+import uuid,json
 from transportion.fields import ListField
 # Create your models here.
 # class Enterprises(models.Model):
@@ -93,16 +93,7 @@ class Vehicles(models.Model):
 		# 'pId':self.enterprise.id,
 		# 'name':self.licenseNumber
 		}
-class GPSdevices(models.Model):
-	"""docstring for GPSdevices"""
-	gpsNo=models.CharField(max_length=10)
-	sim=models.CharField(max_length=11)
-	name=models.CharField(max_length=40)
-	types=models.CharField(max_length=30)
-	manufacturer=models.CharField(max_length=50)
-	remarks=models.CharField(max_length=200)
-	def __unicode__(self):
-		return '%s-%s-%s'%(self.gpsNo,self.name,self.types)
+
 	
 class markerTypes(models.Model):
 	"""docstring for markerTypes"""
@@ -122,3 +113,44 @@ class locationMarkers(models.Model):
 	lnglatXY=ListField(blank=True)
 	def __unicode__(self):
 		return self.name
+class GPSdevices(models.Model):
+	"""docstring for GPSdevices"""
+	gpsNo=models.CharField(max_length=10)
+	vehicleId=models.ForeignKey(Vehicles,null=True,blank=True,default=None,related_name='vehicles_fixedOn')
+	sim=models.CharField(max_length=11)
+	name=models.CharField(max_length=40)
+	types=models.CharField(max_length=30)
+	manufacturer=models.CharField(max_length=50)
+	remarks=models.CharField(max_length=200)
+	def __unicode__(self):
+		return '%s-%s-%s'%(self.gpsNo,self.name,self.types)
+class GPSRTDatas(models.Model):
+ 	"""docstring for GPSRTDatas"""
+ 	deviceId=models.ForeignKey(GPSdevices)
+ 	signalState=models.CharField(max_length=1,blank=True)
+ 	lngX=models.FloatField(blank=True,null=True)
+ 	latY=models.FloatField(blank=True,null=True)
+	curTime=models.DateTimeField(blank=True)
+ 	velocity=models.FloatField(blank=True)
+ 	direction=models.CharField(max_length=1,blank=True)
+ 	temprature=models.FloatField(blank=True)
+ 	deviceState=models.CharField(max_length=1,blank=True)
+ 	ometer=models.FloatField()
+ 	event=models.CharField(max_length=20,blank=True)
+ 	parameter=models.CharField(max_length=100,blank=True)
+ 	def __unicode__(self):
+ 		return '%s-%s-%s'%(self.deviceId.vehicleId.licenseNumber,self.deviceId.name,self.curTime)
+ 	def toJSON(self):
+ 		fields = []
+ 		for field in self._meta.fields:
+ 			fields.append(field.name)
+ 		d = {}
+ 		for attr in fields:
+ 			if isinstance(getattr(self, attr),datetime.datetime):
+ 				d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
+ 			elif isinstance(getattr(self, attr),datetime.date):
+ 				d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
+ 			else:
+ 				d[attr] = getattr(self, attr)
+ 		data_json=json.dumps(d,ensure_ascii=False)
+ 		return data_json

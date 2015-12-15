@@ -1,29 +1,60 @@
 $(document).ready(function() {
     $("a").filter('[target=tabs]').click(function() {
         if (addTab($(this))) {
-            if ($(this).attr("rel") == "trackHistory" || $(this).attr("rel") == "tracks") {
+            if ($(this).attr("rel") == "trackHistory") {
                 $("#starter").attr('disabled', false);
                 $("#ender").attr('disabled', false);
-                $("#bt_commit").text('历史/轨迹查询');
+                $("#bt_commit").text('历史记录查询');
+                checkTreeMultiple(false);
             };
-            if ($(this).attr("rel") == "realTimeLocator" || $(this).attr("rel") == "allTimeLocator") {
+            if ($(this).attr("rel") == "realTimeLocator") {
                 $("#starter").attr('disabled', true);
                 $("#ender").attr('disabled', true);
-                $("#bt_commit").text('实时/连续定位');
+                $("#bt_commit").text('实时定位');
+                checkTreeMultiple(true);
             };
+            if ($(this).attr("rel") == "tracks") {
+                $("#starter").attr('disabled', false);
+                $("#ender").attr('disabled', false);
+                $("#bt_commit").text('历史轨迹回放');
+                checkTreeMultiple(false);
+            };
+            if ($(this).attr("rel") == "allTimeLocator") {
+                $("#starter").attr('disabled', true);
+                $("#ender").attr('disabled', true);
+                $("#bt_commit").text('连续定位');
+                checkTreeMultiple(true);
+            };
+            $("#bt_commit").attr('name',$(this).attr("rel"));
         };
     });
     $('[data-uk-tab]').on('change.uk.tab', function(event, item) {
-        if (item.attr('id') == 'tab_trackHistory' || item.attr('id') == 'tab_tracks') {
+        var tabId=item.attr('id');
+        if (tabId == 'tab_trackHistory') {
             $("#starter").attr('disabled', false);
             $("#ender").attr('disabled', false);
-            $("#bt_commit").text('历史/轨迹查询');
+            $("#bt_commit").text('历史记录查询');
+            checkTreeMultiple(false);
         };
-        if (item.attr('id') == 'tab_realTimeLocator' || item.attr('id') == 'tab_allTimeLocator') {
+        if (tabId == 'tab_realTimeLocator') {
             $("#starter").attr('disabled', true);
             $("#ender").attr('disabled', true);
-            $("#bt_commit").text('实时/连续定位');
+            $("#bt_commit").text('实时定位');
+            checkTreeMultiple(true);
         };
+        if (tabId == 'tab_tracks') {
+            $("#starter").attr('disabled', false);
+            $("#ender").attr('disabled', false);
+            $("#bt_commit").text('历史轨迹回放');
+            checkTreeMultiple(false);
+        };
+        if (tabId == 'tab_allTimeLocator') {
+            $("#starter").attr('disabled', true);
+            $("#ender").attr('disabled', true);
+            $("#bt_commit").text('连续定位');
+            checkTreeMultiple(true);
+        };
+        $("#bt_commit").attr('name',tabId.substring(4,tabId.length));
     });
 });
 
@@ -88,4 +119,8 @@ function removeTab(link) {
         currentTab.remove();
         $(currentTabContentid).remove();
     };
+}
+function checkTreeMultiple (arg) {
+     var instance = $("#MenuTree").jstree(true);
+     instance.settings.core.multiple = arg;
 }
